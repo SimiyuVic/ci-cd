@@ -1,26 +1,27 @@
+
 import express from "express";
 import dotenv from "dotenv";
-
 
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
+app.get("/api/health", (req, res) => {
+  return res.json({
+    message: "OK",
+  });
+});
 
-const PORT = process.env.PORT;
+// Start the server only when this file is run directly.
+const startServer = () => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+};
 
-
-app.get("/api/health", (req, res)=>{
-    return res.json({
-        message: "OK"
-    });
-})
-
-
-const startServer = async()=>{
-    app.listen(PORT,()=>{
-        console.log(`Server running PORT , ${PORT}`)
-    })
+if (process.env.NODE_ENV !== "test") {
+  startServer();
 }
 
-startServer();
+export default app;
