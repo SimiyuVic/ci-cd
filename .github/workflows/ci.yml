@@ -25,3 +25,8 @@ jobs:
 
       - name: Check the application
         run: node --check server.js
+
+      - name: Run automated tests
+        run: npm test
+        env:
+          NODE_ENV: test
